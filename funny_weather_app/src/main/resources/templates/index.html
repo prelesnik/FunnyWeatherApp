@@ -10,13 +10,15 @@
     <h1>Funny Weather App</h1>
     <!-- form to obtain city value -->
     <div class="container">
-        <form method="post">
-            Enter Your City Below: </br>
-            <input type="text" name="city">
+        <form method="get" id="zipForm"  th:action="@{/zip}">
+            Enter Your Zipcode Below: </br>
+            <input type="text" name="zip"></br>
+            <button type="submit">Submit</button>
         </form>
     </div>
     <div>
         <!-- we will put weather response here -->
+        <p><span th:text="${weather.main.getTemp()}"></span></p>
     </div>
 </body>
 </html>
