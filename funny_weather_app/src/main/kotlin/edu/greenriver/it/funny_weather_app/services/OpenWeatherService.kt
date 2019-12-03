@@ -46,20 +46,37 @@ class OpenWeatherService
         }
     }
 
-    fun getMessageByZip(zip: String):String
+    fun getMessageByZip(zip: String): String
     {
         val service = OpenWeatherService()
         try
         {
             val weather = service.getWeatherByZip(zip)
             val tempInF = ((weather.main.temp - 273.15) * 9.0 / 5 + 32).roundToInt()
-            val response = FunnyWeatherResponse(tempInF, "Damn its hot")
+            val response = FunnyWeatherResponse(tempInF, getTempMessage(tempInF))
+
             val moshiBuilder = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
             val jsonAdapter = moshiBuilder.adapter(FunnyWeatherResponse::class.java)
             return jsonAdapter.toJson(response)
+
         } catch (e: FileNotFoundException)
         {
             return "400: Bad Request"
         }
+    }
+
+    fun getTempMessage(temp: Int): String
+    {
+        val message = when
+        {
+            temp < 10      -> "It's REALLY freaking cold!"
+            temp in 10..32 -> "It's below freezing!"
+            temp in 32..45 -> "It's getting pretty damn cold..."
+            temp in 45..60 -> "It's pretty chilly!"
+            temp in 60..75 -> "It's kinda nice!"
+            temp in 75..85 -> "It's a nice day!"
+            else           -> "It's fucking hot!"
+        }
+        return message
     }
 }
