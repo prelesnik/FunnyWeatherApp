@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
+import java.io.FileNotFoundException
 import kotlin.math.roundToInt
 
 /**
@@ -27,15 +28,20 @@ class IndexController
         return "index"
     }
 
-    @RequestMapping(path = ["/{zip}"])
+    @RequestMapping(path = ["/zip"])
     fun getZipData(model: Model, @RequestParam(name = "zip") zip: String): String
     {
         val service = OpenWeatherService()
-        val weather = service.getWeatherByZip(zip)
-        val tempDouble = (weather.main.temp - 273.15) * 9.0/5 + 32
-        val temp = tempDouble.roundToInt()
-
-        model.addAttribute("temp", temp)
+        try
+        {
+            val weather = service.getWeatherByZip(zip)
+            val tempDouble = (weather.main.temp - 273.15) * 9.0 / 5 + 32
+            val response = tempDouble.roundToInt()
+            model.addAttribute("response", "$response degrees fahrenheit")
+        } catch (e: FileNotFoundException)
+        {
+            model.addAttribute("response", "Invalid Zip code")
+        }
         return "index"
     }
 }
