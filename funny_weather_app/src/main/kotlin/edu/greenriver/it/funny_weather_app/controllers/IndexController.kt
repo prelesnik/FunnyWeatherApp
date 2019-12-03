@@ -1,5 +1,6 @@
 package edu.greenriver.it.funny_weather_app.controllers
 
+import edu.greenriver.it.funny_weather_app.services.FunnyWeatherService
 import edu.greenriver.it.funny_weather_app.services.OpenWeatherService
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
@@ -15,7 +16,7 @@ import kotlin.math.roundToInt
  * of the book lending application
  */
 @Controller
-class IndexController
+class IndexController(val service: FunnyWeatherService)
 {
     /**
      * The route to the index page of the application
@@ -23,15 +24,20 @@ class IndexController
     @RequestMapping(path = ["", "/", "/index", "/index.html"])
     fun getIndexController(model: Model): String
     {
-        val service = OpenWeatherService()
-        model.addAttribute("weather", service.getWeatherByZip("98057"))
+//        val service = OpenWeatherService()
+//        model.addAttribute("weather", service.getWeatherByZip("98057"))
+        model.addAttribute("firstVisit", true)
         return "index"
     }
 
     @RequestMapping(path = ["/zip"])
     fun getZipData(model: Model, @RequestParam(name = "zip") zip: String): String
     {
-        val service = OpenWeatherService()
+        val response = service.getWeatherResponse(zip)
+        model.addAttribute("firstVisit", false)
+
+        model.addAttribute("response", response)
+        /*val service = OpenWeatherService()
         try
         {
             val weather = service.getWeatherByZip(zip)
@@ -41,7 +47,7 @@ class IndexController
         } catch (e: FileNotFoundException)
         {
             model.addAttribute("response", "Invalid Zip code")
-        }
+        }*/
         return "index"
     }
 }
