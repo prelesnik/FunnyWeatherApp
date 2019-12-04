@@ -1,0 +1,27 @@
+/* body styles */
+body
+{
+    background-image: url("/img/appBackground.jpg");
+}
+.body
+{
+    box-shadow: 10px 10px 10px;
+    opacity: 0.60;
+    border-radius: 2em;
+    margin: 17vh 17vw;
+    background-color: white;
+    padding: 10px;
+}
+.body *
+{
+    opacity: 1.0;
+}
+.formSubmit
+{
+    margin-top: 1em;
+}
+p
+{
+    font-size: 2em;
+}
+

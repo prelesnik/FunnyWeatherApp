@@ -13,6 +13,7 @@ class FunnyWeatherService
     fun getWeatherResponse(zip: String): FunnyWeatherResponse
     {
         var url = URL("http://localhost:8080/api/byzip?zip=$zip")
+        //var url = URL("https://funnyweatherapp.azurewebsites.net/zip?zip=$zip")
 
         with(url.openConnection() as HttpURLConnection)
         {

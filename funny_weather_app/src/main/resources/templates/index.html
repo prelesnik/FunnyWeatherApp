@@ -3,23 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <title>Funny Weather App</title>
-    <link rel="stylesheet" href="/webjars/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/css/styles.css">
 </head>
-<body>
+<body class="d-flex">
+    <div class="mx-auto text-center w-50 body">
+        <!-- form to obtain city value -->
+        <div class="container justify-content-center appContent">
+            <h1>Funny Weather App</h1>
+            <img class="imgLogo img-fluid h-25 w-25" src="/img/sunLogo.png" alt="A cartoon sun">
+            <div class="appContent" th:if="${!firstVisit}">
+                <!-- we will put weather response here -->
+                <p><span th:text="${response.getTemp()}"></span> Degrees Fahrenheit</p>
+                <p><span th:text="${response.getMessage()}"></span></p>
+            </div>
+            <div class="appContent">
+                <form method="get" id="zipForm" th:action="@{/zip}">
+                    Enter Your Zipcode Below: </br>
+                    <input type="text" name="zip"></br>
+                    <button class="btn btn-info formSubmit" type="submit">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
 
-<h1>Funny Weather App</h1>
-<!-- form to obtain city value -->
-<div class="container">
-    <form method="get" id="zipForm" th:action="@{/zip}">
-        Enter Your Zipcode Below: </br>
-        <input type="text" name="zip"></br>
-        <button type="submit">Submit</button>
-    </form>
-</div>
-<div th:if="${!firstVisit}">
-    <!-- we will put weather response here -->
-    <p><span th:text="${response.getTemp()}"></span> degrees fahrenheit</p>
-    <p><span th:text="${response.getMessage()}"></span></p>
-</div>
 </body>
 </html>
