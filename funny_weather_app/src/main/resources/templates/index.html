@@ -7,6 +7,7 @@
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
     <link rel="stylesheet" type="text/css" href="/css/styles.css">
+    <link href="https://fonts.googleapis.com/css?family=Amaranth|Baloo|Concert+One|Modak&display=swap" rel="stylesheet">
 </head>
 <body class="d-flex">
 <div class="mx-auto text-center w-50 body">
@@ -24,8 +25,8 @@
         </div>
         <div class="appContent">
             <form method="get" id="zipForm" th:action="@{/zip}">
-                Enter Your Zipcode Below: </br>
-                <input type="text" name="zip"></br>
+                <label>Enter Your Zipcode Below:</label><br/>
+                <input type="text" name="zip"><br/>
                 <button class="btn btn-info formSubmit" type="submit">Submit</button>
             </form>
         </div>

@@ -1,6 +1,11 @@
 /* body styles */
 body {
     background-image: url("/img/appBackground.jpg");
+    font-family: 'Montserrat', sans-serif;
+}
+
+h1,button,label{
+    font-family: 'Baloo', cursive;
 }
 
 .body {
