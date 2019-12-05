@@ -30,36 +30,35 @@ class OpenWeatherService
                 }
             }
 
-            //convert json string into an object
-            val moshiBuilder = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
-            val jsonAdapter = moshiBuilder.adapter(CurrentWeatherByZip::class.java)
-            val weatherObject = jsonAdapter.fromJson(jsonData)
-
-            if (weatherObject != null)
+            if (jsonData.startsWith("{"))
             {
-                return weatherObject
-            } else
-            {
-                throw IllegalArgumentException("Data was unable to be retrieved. " +
-                        "Check to make sure the zipcode used is valid.")
+                //convert json string into an object
+                val moshiBuilder = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
+                val jsonAdapter = moshiBuilder.adapter(CurrentWeatherByZip::class.java)
+                val weatherObject = jsonAdapter.fromJson(jsonData)
+                if (weatherObject != null)
+                {
+                    return weatherObject
+                }
             }
+            throw IllegalArgumentException("Invalid Zip Code")
         }
     }
 
     fun getMessageByZip(zip: String): String
     {
-        val service = OpenWeatherService()
         try
         {
-            val weather = service.getWeatherByZip(zip)
+            val weather = getWeatherByZip(zip)
             val tempInF = ((weather.main.temp - 273.15) * 9.0 / 5 + 32).roundToInt()
-            val response = FunnyWeatherResponse(tempInF, getTempMessage(tempInF))
+            val weatherIconId = weather.weather[0].icon
+            val response = FunnyWeatherResponse(tempInF, getTempMessage(tempInF), weatherIconId)
 
             val moshiBuilder = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
             val jsonAdapter = moshiBuilder.adapter(FunnyWeatherResponse::class.java)
             return jsonAdapter.toJson(response)
 
-        } catch (e: FileNotFoundException)
+        } catch (e: Exception)
         {
             return "400: Bad Request"
         }

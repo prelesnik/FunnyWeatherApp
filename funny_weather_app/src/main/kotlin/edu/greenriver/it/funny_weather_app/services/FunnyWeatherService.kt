@@ -37,7 +37,8 @@ class FunnyWeatherService
                     return response
                 }
             }
-            return FunnyWeatherResponse(-460, "I don't know what planet you're from, but it sure ain't here!")
+            return FunnyWeatherResponse(-460,
+                    "I don't know what planet you're from, but it sure ain't here!", "01n")
         }
     }
 }

@@ -24,8 +24,6 @@ class IndexController(val service: FunnyWeatherService)
     @RequestMapping(path = ["", "/", "/index", "/index.html"])
     fun getIndexController(model: Model): String
     {
-//        val service = OpenWeatherService()
-//        model.addAttribute("weather", service.getWeatherByZip("98057"))
         model.addAttribute("firstVisit", true)
         return "index"
     }
@@ -37,17 +35,6 @@ class IndexController(val service: FunnyWeatherService)
         model.addAttribute("firstVisit", false)
 
         model.addAttribute("response", response)
-        /*val service = OpenWeatherService()
-        try
-        {
-            val weather = service.getWeatherByZip(zip)
-            val tempDouble = (weather.main.temp - 273.15) * 9.0 / 5 + 32
-            val response = tempDouble.roundToInt()
-            model.addAttribute("response", "$response degrees fahrenheit")
-        } catch (e: FileNotFoundException)
-        {
-            model.addAttribute("response", "Invalid Zip code")
-        }*/
         return "index"
     }
 }
