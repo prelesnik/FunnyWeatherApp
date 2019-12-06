@@ -68,13 +68,16 @@ class OpenWeatherService
     {
         val message = when
         {
-            temp < 10      -> "It's REALLY freaking cold!"
-            temp in 10..32 -> "It's below freezing!"
-            temp in 32..45 -> "It's getting pretty damn cold..."
-            temp in 45..60 -> "It's pretty chilly!"
-            temp in 60..75 -> "It's kinda nice!"
-            temp in 75..85 -> "It's a nice day!"
-            else           -> "It's fucking hot!"
+            temp < 20      -> "Below 20... F@#k!!"
+            temp in 20..31 -> "Forget jock itch, I have freezer burn!"
+            temp in 32..39 -> "Great.... not only do we have to smell your breath, now we have to see it too!"
+            temp in 40..49 -> "My shrinkage has shrunk!"
+            temp in 50..59 -> "Hope you took your depression meds!"
+            temp in 60..68 -> "Who unplugged summer?"
+            temp == 69 -> "Nice.... ;D"
+            temp in 70..79 -> "Beware of shirtless fat guys!"
+            temp in 80..90 -> "Why are you checking the weather?? GO OUTSIDE!"
+            else           -> "It's 90's plus...?? I feel like a turkey on Thanksgiving!"
         }
         return message
     }
